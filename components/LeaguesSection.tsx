@@ -81,12 +81,12 @@ export default function LeaguesSection() {
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-16 md:mb-24">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-px w-12 bg-[#D4AF37]"></div>
+            <div className="h-px w-12 bg-[#CC0000]"></div>
             <span className="font-dm-sans text-[#D4AF37] font-bold tracking-[0.2em] uppercase text-xs">Excellence</span>
             <div className="h-px w-12 bg-[#D4AF37]"></div>
           </div>
-          <h2 className="font-anton font-black italic text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight mb-6">
-            We Compete at the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-yellow-600">Highest Level</span>
+          <h2 className="font-anton font-black italic text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-wide mb-6">
+            We Compete at the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-red-700">Highest Level</span>
           </h2>
           <p className="font-dm-sans text-gray-400 max-w-2xl mx-auto text-lg">
             Our athletes train and play in the most competitive leagues in the country, ensuring maximum exposure and development.
@@ -146,12 +146,12 @@ export default function LeaguesSection() {
 
         {/* Marquee */}
         <motion.div variants={itemVariants} className="w-full overflow-hidden mb-20 md:mb-24">
-          <div className="marquee-container relative w-full flex items-center h-32 mask-image-linear-gradient">
+          <div className="marquee-container relative w-full flex items-center h-32 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             {/* Left/Right Fade Masks */}
             <div className="absolute left-0 top-0 w-24 md:w-40 h-full bg-gradient-to-r from-[#02040A] to-transparent z-20 pointer-events-none"></div>
             <div className="absolute right-0 top-0 w-24 md:w-40 h-full bg-gradient-to-l from-[#02040A] to-transparent z-20 pointer-events-none"></div>
             
-            <div className="marquee-content flex items-center gap-16 md:gap-24 px-8 md:animate-[marquee_25s_linear_infinite] animate-[marquee_15s_linear_infinite]">
+            <div className="marquee-content flex w-max items-center gap-16 md:gap-24 px-8 md:animate-[marquee_25s_linear_infinite] animate-[marquee_15s_linear_infinite]">
               {marqueeLogos.map((logo, i) => (
                 <div key={i} className="flex-shrink-0 flex items-center justify-center group cursor-pointer">
                   <Image 

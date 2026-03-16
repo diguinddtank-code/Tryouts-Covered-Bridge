@@ -120,7 +120,7 @@ export default function TravelSection() {
               International Exchange Program
             </span>
           </div>
-          <h2 className="font-anton text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] leading-[0.85] uppercase tracking-normal flex flex-wrap gap-x-4 gap-y-2">
+          <h2 className="font-anton text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] leading-[0.85] uppercase tracking-wide flex flex-wrap gap-x-4 gap-y-2">
             {words.map((word, i) => (
               <motion.span key={i} variants={wordVariants} className="inline-block">
                 {word}

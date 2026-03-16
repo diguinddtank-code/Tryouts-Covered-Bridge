@@ -141,12 +141,12 @@ export default function TryoutsLanding() {
           
           {/* HERO TEXT */}
           <div className="w-full flex flex-col items-center text-center mt-8 md:mt-0">
-            <h1 className="font-anton font-black italic text-2xl md:text-3xl tracking-tight mb-1 md:hidden">{t.nav.clubName}</h1>
+            <h1 className="font-anton font-black italic text-2xl md:text-3xl tracking-wide mb-1 md:hidden">{t.nav.clubName}</h1>
             <p className="font-dm-sans text-xs tracking-widest text-gray-300 uppercase font-semibold mb-8 md:mb-12 md:hidden">
               {t.hero.est}
             </p>
 
-            <h2 className="font-anton font-black italic text-6xl md:text-8xl lg:text-[7rem] leading-[0.85] tracking-normal uppercase drop-shadow-[0_0_30px_rgba(204,0,0,0.4)]">
+            <h2 className="font-anton font-black italic text-6xl md:text-8xl lg:text-[7rem] leading-[0.85] tracking-wide uppercase drop-shadow-[0_0_30px_rgba(204,0,0,0.4)]">
               <span className="block text-white">{t.hero.line1}</span>
               <span className="block text-red">{t.hero.line2}</span>
             </h2>
@@ -174,7 +174,7 @@ export default function TryoutsLanding() {
               {!isSubmitted ? (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="mb-6 text-center">
-                    <h2 className="font-anton font-black italic text-2xl md:text-3xl tracking-tight mb-1 text-slate-900">
+                    <h2 className="font-anton font-black italic text-2xl md:text-3xl tracking-wide mb-1 text-slate-900">
                       {t.form.title} <span className="text-red">{t.form.titleAccent}</span>
                     </h2>
                     <p className="font-dm-sans text-xs md:text-sm text-slate-500 font-medium">
@@ -211,10 +211,6 @@ export default function TryoutsLanding() {
                             <option key={pos} value={pos}>{pos}</option>
                           ))}
                         </select>
-                      </div>
-                      <div className="flex flex-col gap-1.5">
-                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.currentClub}</label>
-                        <input type="text" placeholder={t.form.fields.currentClubPlaceholder} className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm placeholder:text-slate-400 border border-slate-200" />
                       </div>
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.cityState}</label>
@@ -273,7 +269,7 @@ export default function TryoutsLanding() {
                       <path d="M30 50 L45 65 L70 35" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" className="animate-draw-check" strokeDasharray="100" strokeDashoffset="100" style={{ animation: 'draw-check 0.5s ease-out 0.5s forwards' }} />
                     </svg>
                   </div>
-                  <h2 className="font-anton font-black italic text-3xl tracking-tight mb-3 text-slate-900">{t.form.success.title}</h2>
+                  <h2 className="font-anton font-black italic text-3xl tracking-wide mb-3 text-slate-900">{t.form.success.title}</h2>
                   <p className="font-dm-sans text-sm text-slate-600 mb-8 max-w-sm">
                     {t.form.success.body}
                   </p>
@@ -377,7 +373,7 @@ export default function TryoutsLanding() {
                   <div className="h-px w-12 bg-red"></div>
                   <span className="font-dm-sans text-red font-bold tracking-[0.2em] uppercase text-xs">The Covered Bridge Difference</span>
                 </div>
-                <h2 className="font-anton font-black italic text-4xl md:text-6xl lg:text-7xl tracking-tight text-white leading-[0.9]">
+                <h2 className="font-anton font-black italic text-4xl md:text-6xl lg:text-7xl tracking-wide text-white leading-[0.9]">
                   WE DON&apos;T JUST PLAY.<br/>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-red to-red-500">WE DEVELOP.</span>
                 </h2>
@@ -483,7 +479,7 @@ export default function TryoutsLanding() {
               viewport={{ once: true }}
               className="text-center mb-12 md:mb-16"
             >
-              <h2 className="font-anton font-black italic text-3xl md:text-5xl tracking-tight text-white mb-4">{t.testimonials.title}</h2>
+              <h2 className="font-anton font-black italic text-3xl md:text-5xl tracking-wide text-white mb-4">{t.testimonials.title}</h2>
               <div className="h-[3px] w-16 bg-gold mx-auto rounded-full"></div>
             </motion.div>
 
@@ -540,7 +536,7 @@ export default function TryoutsLanding() {
             viewport={{ once: true }}
             className="text-center mb-12 md:mb-16"
           >
-            <h2 className="font-anton font-black italic text-3xl md:text-5xl tracking-tight text-white mb-4">{t.faq.title}</h2>
+            <h2 className="font-anton font-black italic text-3xl md:text-5xl tracking-wide text-white mb-4">{t.faq.title}</h2>
             <div className="h-[3px] w-16 bg-red mx-auto rounded-full"></div>
           </motion.div>
 
@@ -581,7 +577,7 @@ export default function TryoutsLanding() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6"
           >
-            <h2 className="font-anton font-black italic text-4xl md:text-6xl lg:text-7xl tracking-tight mb-6 md:mb-8 text-white drop-shadow-lg">
+            <h2 className="font-anton font-black italic text-4xl md:text-6xl lg:text-7xl tracking-wide mb-6 md:mb-8 text-white drop-shadow-lg">
               {t.cta.line1} <span className="text-red">{t.cta.line2}</span>
             </h2>
             <motion.button 
@@ -600,7 +596,7 @@ export default function TryoutsLanding() {
           <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
               <Image src="https://traccoveredbridge.com/wp-content/uploads/2024/03/Covered_Bridge_logo.png" alt="Logo" width={40} height={40} className="object-contain opacity-50" referrerPolicy="no-referrer" />
-              <span className="font-anton font-black italic text-lg tracking-tight text-white/50">{t.nav.clubName}</span>
+              <span className="font-anton font-black italic text-lg tracking-wide text-white/50">{t.nav.clubName}</span>
             </div>
             
             <div className="flex items-center gap-6">
