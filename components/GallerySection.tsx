@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -16,18 +16,11 @@ interface GalleryItem {
 }
 
 const galleryItems: GalleryItem[] = [
-  { id: "01", category: "Training", src: "https://picsum.photos/seed/gallery-01/800/1000", title: "Morning Drills", className: "col-span-2 row-span-2" },
-  { id: "02", category: "Athletes", src: "https://picsum.photos/seed/gallery-02/800/800", title: "Focus", className: "col-span-1 row-span-1" },
-  { id: "03", category: "Matches", src: "https://picsum.photos/seed/gallery-03/1000/800", title: "Derby Day", className: "col-span-1 row-span-1 md:col-span-2" },
-  { id: "04", category: "Travel", src: "https://picsum.photos/seed/gallery-04/800/1200", title: "Away Game", className: "col-span-1 row-span-2" },
-  { id: "05", category: "Training", src: "https://picsum.photos/seed/gallery-05/800/800", title: "Tactical Session", className: "col-span-1 row-span-1" },
-  { id: "06", category: "Athletes", src: "https://picsum.photos/seed/gallery-06/800/800", title: "Recovery", className: "col-span-1 row-span-1" },
-  { id: "07", category: "Matches", src: "https://picsum.photos/seed/gallery-07/1200/800", title: "Championship", className: "col-span-2 row-span-2" },
-  { id: "08", category: "Athletes", src: "https://picsum.photos/seed/gallery-08/800/1000", title: "New Signing", className: "col-span-1 row-span-2" },
-  { id: "09", category: "Training", src: "https://picsum.photos/seed/gallery-09/800/800", title: "Weight Room", className: "col-span-1 row-span-1" },
-  { id: "10", category: "Travel", src: "https://picsum.photos/seed/gallery-10/1000/800", title: "Airport Bound", className: "col-span-1 row-span-1 md:col-span-2" },
-  { id: "11", category: "Matches", src: "https://picsum.photos/seed/gallery-11/800/800", title: "Celebration", className: "col-span-1 row-span-1" },
-  { id: "12", category: "Athletes", src: "https://picsum.photos/seed/gallery-12/800/800", title: "Captain", className: "col-span-1 row-span-1" },
+  { id: "01", category: "Training", src: "/DIR03125.jpg", title: "Morning Drills", className: "col-span-2 row-span-2" },
+  { id: "02", category: "Athletes", src: "/DIR03126.jpg", title: "Focus", className: "col-span-1 row-span-1" },
+  { id: "03", category: "Matches", src: "/DIR03127.jpg", title: "Derby Day", className: "col-span-1 row-span-1 md:col-span-2" },
+  { id: "04", category: "Travel", src: "/DIR03128.jpg", title: "Away Game", className: "col-span-1 row-span-2" },
+  { id: "05", category: "Training", src: "/DIR03129.jpg", title: "Tactical Session", className: "col-span-1 row-span-1" },
 ];
 
 const categories: Category[] = ["All", "Athletes", "Training", "Travel", "Matches"];
@@ -111,38 +104,46 @@ function TiltCard({ item, onClick }: { item: GalleryItem; onClick: () => void })
 export default function GallerySection() {
   const [activeCategory, setActiveCategory] = useState<Category>("All");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [items, setItems] = useState<GalleryItem[]>(galleryItems);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const filteredItems = galleryItems.filter(
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setItems([...galleryItems].sort(() => Math.random() - 0.5));
+    setIsMounted(true);
+  }, []);
+
+  const filteredItems = items.filter(
     (item) => activeCategory === "All" || item.category === activeCategory
   );
 
   // Lightbox navigation
-  const openLightbox = (index: number) => setLightboxIndex(index);
-  const closeLightbox = () => setLightboxIndex(null);
-  const nextImage = (e?: React.MouseEvent) => {
+  const openLightbox = useCallback((index: number) => setLightboxIndex(index), []);
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const nextImage = useCallback((e?: React.MouseEvent | KeyboardEvent) => {
     e?.stopPropagation();
     if (lightboxIndex !== null) {
       setLightboxIndex((lightboxIndex + 1) % filteredItems.length);
     }
-  };
-  const prevImage = (e?: React.MouseEvent) => {
+  }, [lightboxIndex, filteredItems.length]);
+  const prevImage = useCallback((e?: React.MouseEvent | KeyboardEvent) => {
     e?.stopPropagation();
     if (lightboxIndex !== null) {
       setLightboxIndex((lightboxIndex - 1 + filteredItems.length) % filteredItems.length);
     }
-  };
+  }, [lightboxIndex, filteredItems.length]);
 
   // Keyboard navigation for lightbox
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (lightboxIndex === null) return;
       if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === "ArrowLeft") prevImage();
+      if (e.key === "ArrowRight") nextImage(e);
+      if (e.key === "ArrowLeft") prevImage(e);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIndex, filteredItems.length]);
+  }, [lightboxIndex, closeLightbox, nextImage, prevImage]);
 
   const headline = "BUILT DIFFERENT. TRAINED DIFFERENT.";
   const words = headline.split(" ");

@@ -59,7 +59,6 @@ html {
 }
 
 .marquee-content {
-  display: inline-block;
   animation: marquee 20s linear infinite;
 }
 
@@ -91,7 +90,9 @@ html {
   animation: draw-check 1s ease-out forwards;
 }
 
-/* Shimmer effect */
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
 .btn-shimmer {
   position: relative;
   overflow: hidden;

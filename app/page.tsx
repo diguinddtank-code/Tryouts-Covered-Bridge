@@ -6,7 +6,6 @@ import { Check, ChevronDown, Trophy, Target, Users, Instagram } from "lucide-rea
 import { useLanguage } from "@/context/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
 import TravelSection from "@/components/TravelSection";
-import GallerySection from "@/components/GallerySection";
 import LeaguesSection from "@/components/LeaguesSection";
 import { motion } from "motion/react";
 
@@ -18,9 +17,6 @@ export default function TryoutsLanding() {
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Set an initial random count
-    setRegisteringCount(Math.floor(Math.random() * 6) + 2); // 2 to 7
-
     // Update the count randomly every 5-12 seconds to simulate live activity
     const updateCount = () => {
       setRegisteringCount(prev => {
@@ -46,7 +42,9 @@ export default function TryoutsLanding() {
     // ─── GOOGLE ANALYTICS ──────────────────────────────────────────
     // gtag('event', 'tryout_registration', {...});
     // ─── META PIXEL ────────────────────────────────────────────────
-    // fbq('track', 'Lead', { content_name: 'Tryout Registration' });
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Lead');
+    }
     // ─── TIKTOK PIXEL ──────────────────────────────────────────────
     // ttq.track('SubmitForm');
     
@@ -295,7 +293,6 @@ export default function TryoutsLanding() {
                 { src: "https://traccoveredbridge.com/wp-content/uploads/2023/05/logo_ga_soccer-150x150.png", alt: "Georgia Soccer" },
                 { src: "https://traccoveredbridge.com/wp-content/uploads/2023/05/usys-150x150.png", alt: "USYS" },
                 { src: "https://traccoveredbridge.com/wp-content/uploads/2023/05/us_youth-1-150x150.png", alt: "US Youth Soccer" },
-                { src: "https://traccoveredbridge.com/wp-content/uploads/2023/06/UPSL_logo-1-150x150.png", alt: "UPSL" },
                 { src: "https://images.mlssoccer.com/image/upload/v1664742553/assets/logos/mls-next-2022-COLOR-800x800.png", alt: "MLS Next" }
               ].map((logo, i) => (
                 <div key={`${arrayIndex}-${i}`} className="flex items-center justify-center w-14 h-14 md:w-16 md:h-16 relative opacity-100 md:opacity-70 hover:opacity-100 transition-opacity duration-300 grayscale-0 md:grayscale hover:grayscale-0">
@@ -458,9 +455,6 @@ export default function TryoutsLanding() {
 
         {/* SECTION - TRAVEL & EXCHANGE PROGRAM */}
         <TravelSection />
-
-        {/* SECTION - OUR CLUB GALLERY */}
-        <GallerySection />
 
         {/* SECTION - LEAGUES & CHAMPIONSHIPS */}
         <LeaguesSection />

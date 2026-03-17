@@ -26,11 +26,12 @@ function AnimatedCounter({ from, to, suffix, duration = 2 }: { from: number, to:
 }
 
 const destinations = [
-  { city: "Barcelona", country: "Spain", desc: "Tactical mastery in the heart of Catalonia.", img: "https://picsum.photos/seed/bcn/800/1000" },
-  { city: "Miami", country: "USA", desc: "High-intensity training under the sun.", img: "https://picsum.photos/seed/miami/800/1000" },
-  { city: "São Paulo", country: "Brazil", desc: "Raw talent and technical flair.", img: "https://picsum.photos/seed/saopaulo/800/1000" },
-  { city: "London", country: "UK", desc: "Physicality and pace of the English game.", img: "https://picsum.photos/seed/london/800/1000" },
-  { city: "Lisbon", country: "Portugal", desc: "European technical development.", img: "https://picsum.photos/seed/lisbon/800/1000" },
+  { name: "England", flag: "🇬🇧" },
+  { name: "Netherlands", flag: "🇳🇱" },
+  { name: "Brazil", flag: "🇧🇷" },
+  { name: "Portugal", flag: "🇵🇹" },
+  { name: "Spain", flag: "🇪🇸" },
+  { name: "California", flag: "🇺🇸" },
 ];
 
 const benefits = [
@@ -41,8 +42,6 @@ const benefits = [
 
 export default function TravelSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -50,16 +49,6 @@ export default function TravelSection() {
   });
   
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-
-  const handleScroll = () => {
-    if (!carouselRef.current) return;
-    const scrollLeft = carouselRef.current.scrollLeft;
-    const scrollWidth = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
-    if (scrollWidth === 0) return;
-    const progress = scrollLeft / scrollWidth;
-    const index = Math.round(progress * (destinations.length - 1));
-    setActiveIndex(index);
-  };
 
   const headline = "THE WORLD IS YOUR TRAINING GROUND";
   const words = headline.split(" ");
@@ -147,52 +136,15 @@ export default function TravelSection() {
           ))}
         </div>
 
-        {/* Carousel */}
+        {/* Destinations Grid */}
         <div className="mb-20 md:mb-32">
-          <div className="flex items-end justify-between mb-8">
-            <h3 className="font-anton text-4xl md:text-5xl">DESTINATIONS</h3>
-            <div className="hidden md:flex gap-2">
-              {destinations.map((_, i) => (
-                <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? 'w-8 bg-[#E5FF00]' : 'w-2 bg-white/20'}`} />
-              ))}
-            </div>
-          </div>
-          
-          <div 
-            ref={carouselRef}
-            onScroll={handleScroll}
-            className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-8 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
+          <h3 className="font-anton text-4xl md:text-5xl mb-12">DESTINATIONS</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
             {destinations.map((dest, i) => (
-              <div 
-                key={i} 
-                className="relative shrink-0 w-[85vw] sm:w-[320px] md:w-[400px] aspect-[4/5] rounded-2xl overflow-hidden snap-center group cursor-pointer"
-              >
-                <Image 
-                  src={dest.img} 
-                  alt={dest.city} 
-                  fill 
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
-                <div className="absolute inset-0 bg-[#E5FF00]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-overlay"></div>
-                
-                <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="font-dm-sans text-[#E5FF00] font-bold tracking-widest text-xs uppercase mb-2">{dest.country}</p>
-                  <h4 className="font-anton text-4xl md:text-5xl text-white mb-2">{dest.city}</h4>
-                  <p className="font-dm-sans text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                    {dest.desc}
-                  </p>
-                </div>
+              <div key={i} className="flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#E5FF00]/50 transition-colors duration-300">
+                <span className="text-6xl">{dest.flag}</span>
+                <span className="font-anton text-xl text-white tracking-wide uppercase">{dest.name}</span>
               </div>
-            ))}
-          </div>
-          {/* Mobile Dots */}
-          <div className="flex md:hidden justify-center gap-2 mt-2">
-            {destinations.map((_, i) => (
-              <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? 'w-8 bg-[#E5FF00]' : 'w-2 bg-white/20'}`} />
             ))}
           </div>
         </div>
