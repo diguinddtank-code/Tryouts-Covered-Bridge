@@ -648,7 +648,18 @@ function RegistrationForm({ t }: { t: any }) {
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">{t.hearLabel} *</label>
-                <input type="text" name="hearAbout" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all" />
+                <select 
+                  name="hearAbout" 
+                  required 
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all appearance-none cursor-pointer"
+                >
+                  <option value="" disabled selected className="bg-[#0a0a0a]">{t.optional}</option>
+                  {Object.entries(t.hearOptions).map(([key, value]) => (
+                    <option key={key} value={key} className="bg-[#0a0a0a]">
+                      {value as string}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">

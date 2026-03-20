@@ -75,6 +75,15 @@ export const translations = {
     posCM: "Center Midfield",
     posFW: "Forward",
     hearLabel: "How did you hear about us?",
+    hearOptions: {
+      instagram: "Instagram",
+      tiktok: "TikTok",
+      facebook: "Facebook",
+      friend: "Friend / Family",
+      coach: "Coach",
+      google: "Google Search",
+      other: "Other"
+    },
     teamLabel: "Current Team",
     optional: "optional",
     levelLabel: "Current Highest Level",
@@ -157,6 +166,15 @@ export const translations = {
     posCM: "Medio Centro",
     posFW: "Delantero",
     hearLabel: "¿Cómo te enteraste de nosotros?",
+    hearOptions: {
+      instagram: "Instagram",
+      tiktok: "TikTok",
+      facebook: "Facebook",
+      friend: "Amigo / Familia",
+      coach: "Entrenador",
+      google: "Búsqueda en Google",
+      other: "Otro"
+    },
     teamLabel: "Equipo Actual",
     optional: "opcional",
     levelLabel: "Nivel Más Alto Actual",
@@ -239,6 +257,15 @@ export const translations = {
     posCM: "Meia Central",
     posFW: "Atacante",
     hearLabel: "Como você nos conheceu?",
+    hearOptions: {
+      instagram: "Instagram",
+      tiktok: "TikTok",
+      facebook: "Facebook",
+      friend: "Amigo / Família",
+      coach: "Treinador",
+      google: "Busca no Google",
+      other: "Outro"
+    },
     teamLabel: "Equipe Atual",
     optional: "opcional",
     levelLabel: "Nível Mais Alto Atual",
