@@ -185,15 +185,15 @@ export default function TryoutsLanding() {
                       {/* Player Details */}
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.playerName}</label>
-                        <input required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm placeholder:text-slate-400 border border-slate-200" />
+                        <input name="playerName" required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm placeholder:text-slate-400 border border-slate-200" />
                       </div>
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.dob}</label>
-                        <input required type="date" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                        <input name="dob" required type="date" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
                       </div>
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.ageGroup}</label>
-                        <select required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
+                        <select name="ageGroup" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
                           <option value="" className="text-slate-400">{t.form.fields.selectAgeGroup}</option>
                           {['U9', 'U10', 'U11', 'U12', 'U13', 'U14', 'U15', 'U16', 'U17', 'U18', 'U19'].map(age => (
                             <option key={age} value={age}>{age}</option>
@@ -203,7 +203,7 @@ export default function TryoutsLanding() {
 
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.position}</label>
-                        <select required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
+                        <select name="position" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
                           <option value="" className="text-slate-400">{t.form.fields.selectPosition}</option>
                           {t.form.fields.options.positions.map(pos => (
                             <option key={pos} value={pos}>{pos}</option>
@@ -212,27 +212,27 @@ export default function TryoutsLanding() {
                       </div>
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.cityState}</label>
-                        <input required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                        <input name="cityState" required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
                       </div>
 
                       {/* Parent Details */}
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.parentName}</label>
-                        <input required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                        <input name="parentName" required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
                       </div>
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.parentEmail}</label>
-                        <input required type="email" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                        <input name="parentEmail" required type="email" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
                       </div>
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.parentPhone}</label>
-                        <input required type="tel" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                        <input name="parentPhone" required type="tel" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
                       </div>
 
                       {/* Other Details */}
                       <div className="flex flex-col gap-1.5 md:col-span-1">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.hearAbout}</label>
-                        <select required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
+                        <select name="hearAbout" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
                           <option value="" className="text-slate-400">{t.form.fields.selectHearAbout}</option>
                           {t.form.fields.options.hearAbout.map(opt => (
                             <option key={opt} value={opt}>{opt}</option>
@@ -241,7 +241,7 @@ export default function TryoutsLanding() {
                       </div>
                       <div className="flex flex-col gap-1.5 sm:col-span-2 md:col-span-2">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.anythingElse}</label>
-                        <input type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                        <input name="anythingElse" type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
                       </div>
                     </div>
 
