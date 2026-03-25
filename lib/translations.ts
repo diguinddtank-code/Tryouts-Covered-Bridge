@@ -107,7 +107,7 @@ export const translations: Record<Locale, Translation> = {
     form: {
       title: "REGISTER FOR",
       titleAccent: "TRYOUTS",
-      subtitle: "Free to apply · No commitment · Reply within 48hrs",
+      subtitle: "Secure your spot · Limited availability · Elite coaching",
       fields: {
         playerName: "Player Full Name *",
         dob: "Date of Birth *",
@@ -130,8 +130,8 @@ export const translations: Record<Locale, Translation> = {
         }
       },
       divider: "PARENT INFORMATION",
-      submit: "SUBMIT MY APPLICATION →",
-      trust: ["No payment required", "No spam, ever", "48hr response"],
+      submit: "SECURE MY SPOT →",
+      trust: ["Secure registration", "No spam, ever", "Fast response"],
       success: {
         title: "YOU'RE IN THE QUEUE!",
         body: "Check your email — we'll reach out within 48 hours with your tryout details.",
@@ -240,7 +240,7 @@ export const translations: Record<Locale, Translation> = {
     form: {
       title: "REGÍSTRATE AL",
       titleAccent: "TRYOUT",
-      subtitle: "Gratis · Sin compromiso · Respuesta en 48hrs",
+      subtitle: "Asegura tu lugar · Cupos limitados · Entrenamiento de élite",
       fields: {
         playerName: "Nombre Completo del Jugador *",
         dob: "Fecha de Nacimiento *",
@@ -263,8 +263,8 @@ export const translations: Record<Locale, Translation> = {
         }
       },
       divider: "INFORMACIÓN DEL PADRE/MADRE",
-      submit: "ENVIAR MI SOLICITUD →",
-      trust: ["Sin pago requerido", "Sin spam", "Respuesta en 48hrs"],
+      submit: "ASEGURAR MI LUGAR →",
+      trust: ["Registro seguro", "Sin spam", "Respuesta rápida"],
       success: {
         title: "¡ESTÁS DENTRO!",
         body: "Revisa tu correo — te contactaremos en 48 horas con los detalles de tu prueba.",
@@ -373,7 +373,7 @@ export const translations: Record<Locale, Translation> = {
     form: {
       title: "CADASTRE-SE NO",
       titleAccent: "TRYOUT",
-      subtitle: "Gratuito · Sem compromisso · Resposta em 48hrs",
+      subtitle: "Garanta sua vaga · Vagas limitadas · Treinamento de elite",
       fields: {
         playerName: "Nome Completo do Jogador *",
         dob: "Data de Nascimento *",
@@ -396,8 +396,8 @@ export const translations: Record<Locale, Translation> = {
         }
       },
       divider: "INFORMAÇÕES DO RESPONSÁVEL",
-      submit: "ENVIAR MINHA INSCRIÇÃO →",
-      trust: ["Sem pagamento", "Sem spam", "Resposta em 48hrs"],
+      submit: "GARANTIR MINHA VAGA →",
+      trust: ["Registro seguro", "Sem spam", "Resposta rápida"],
       success: {
         title: "VOCÊ ESTÁ DENTRO!",
         body: "Verifique seu email — entraremos em contato em 48 horas com os detalhes do seu tryout.",
