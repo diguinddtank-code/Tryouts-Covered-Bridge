@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useInView } from "motion/react";
 import { translations, Language } from "./i18n";
 import { Check, ChevronDown, MapPin, Calendar, Clock } from "lucide-react";
 
-const WEBHOOK_URL = "https://webhook.infra-remakingautomacoes.cloud/webhook/mlstryouts"; // Configure webhook URL here
+// Webhook URL is now handled in the API route (/api/webhook/mls)
 
 export default function MLSNextTryouts() {
   const [lang, setLang] = useState<Language>("EN");
@@ -493,8 +493,7 @@ function RegistrationForm({ t }: { t: any }) {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const WEBHOOK_URL = '#';
-      await fetch(WEBHOOK_URL, {
+      await fetch('/api/webhook/mls', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

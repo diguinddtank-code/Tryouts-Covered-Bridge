@@ -36,10 +36,23 @@ export default function TryoutsLanding() {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData.entries());
+
     // ─── WEBHOOK: POST form data here ──────────────────────────────
-    const WEBHOOK_URL = '#'; // Replace with Zapier / Make / n8n endpoint
+    try {
+      await fetch('/api/webhook/main', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+
     // ─── GOOGLE ANALYTICS ──────────────────────────────────────────
     // gtag('event', 'tryout_registration', {...});
     // ─── META PIXEL ────────────────────────────────────────────────
