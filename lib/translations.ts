@@ -24,6 +24,8 @@ export interface Translation {
       selectAgeGroup: string;
       position: string;
       selectPosition: string;
+      location: string;
+      selectLocation: string;
       parentName: string;
       parentEmail: string;
       parentPhone: string;
@@ -46,6 +48,11 @@ export interface Translation {
       body: string;
       reset: string;
     };
+  };
+  schedule?: {
+    tag: string;
+    title: string;
+    subtitle: string;
   };
   stats: {
     years: string;
@@ -115,6 +122,8 @@ export const translations: Record<Locale, Translation> = {
         selectAgeGroup: "Select Age Group",
         position: "Primary Position *",
         selectPosition: "Select Position",
+        location: "Location *",
+        selectLocation: "Select Location",
         parentName: "Parent/Guardian Name *",
         parentEmail: "Parent Email *",
         parentPhone: "Parent Phone *",
@@ -137,6 +146,11 @@ export const translations: Record<Locale, Translation> = {
         body: "Check your email — we'll reach out within 48 hours with your tryout details.",
         reset: "Submit another registration →"
       }
+    },
+    schedule: {
+      tag: "TRYOUT SCHEDULE",
+      title: "DATES & LOCATIONS",
+      subtitle: "Find the closest location and register for your age group's tryout session."
     },
     stats: {
       years: "Years Training Elite",
@@ -248,6 +262,8 @@ export const translations: Record<Locale, Translation> = {
         selectAgeGroup: "Seleccionar Grupo de Edad",
         position: "Posición Principal *",
         selectPosition: "Seleccionar Posición",
+        location: "Ubicación *",
+        selectLocation: "Seleccionar Ubicación",
         parentName: "Nombre del Padre/Madre *",
         parentEmail: "Correo del Padre/Madre *",
         parentPhone: "Teléfono *",
@@ -270,6 +286,11 @@ export const translations: Record<Locale, Translation> = {
         body: "Revisa tu correo — te contactaremos en 48 horas con los detalles de tu prueba.",
         reset: "Enviar otro registro →"
       }
+    },
+    schedule: {
+      tag: "CALENDARIO DE PRUEBAS",
+      title: "FECHAS Y UBICACIONES",
+      subtitle: "Encuentra la ubicación más cercana y regístrate para la sesión de prueba de tu grupo de edad."
     },
     stats: {
       years: "Años Entrenamiento Élite",
@@ -381,6 +402,8 @@ export const translations: Record<Locale, Translation> = {
         selectAgeGroup: "Selecionar Faixa Etária",
         position: "Posição Principal *",
         selectPosition: "Selecionar Posição",
+        location: "Local *",
+        selectLocation: "Selecionar Local",
         parentName: "Nome do Responsável *",
         parentEmail: "Email do Responsável *",
         parentPhone: "Telefone *",
@@ -403,6 +426,11 @@ export const translations: Record<Locale, Translation> = {
         body: "Verifique seu email — entraremos em contato em 48 horas com os detalhes do seu tryout.",
         reset: "Enviar outro cadastro →"
       }
+    },
+    schedule: {
+      tag: "CALENDÁRIO DE TESTES",
+      title: "DATAS E LOCAIS",
+      subtitle: "Encontre o local mais próximo e registre-se para a sessão de testes da sua faixa etária."
     },
     stats: {
       years: "Anos de Treinamento Elite",

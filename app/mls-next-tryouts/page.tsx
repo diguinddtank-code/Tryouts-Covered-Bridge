@@ -8,14 +8,6 @@ import { Check, ChevronDown, MapPin, Calendar, Clock } from "lucide-react";
 
 const WEBHOOK_URL = "https://webhook.infra-remakingautomacoes.cloud/webhook/mlstryouts"; // Configure webhook URL here
 
-const PLAYMETRICS_URL = "https://playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0xMTEzLTE3Nzg1OTk1NTh8WnNxdXA4RGhmaXJKVkU5aE1TcUYxODcwb1hTeXNwR1lZT25QcFUxNm5sdz0=&program_id=95068&fbclid=PAT01DUAQwo8RleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafrZeEPBnKTgWEo6imNW8JVh2II6iFkdxngWiMguSPh0ONjQeIMSDpJxbi3OQ_aem_erpg7MfdbbDrfOy04jsTTA";
-
-const handlePlayMetricsClick = () => {
-  if (typeof window !== 'undefined' && (window as any).fbq) {
-    (window as any).fbq('track', 'Lead');
-  }
-};
-
 export default function MLSNextTryouts() {
   const [lang, setLang] = useState<Language>("EN");
   const t = translations[lang];
@@ -112,8 +104,7 @@ function Hero({ t }: { t: any }) {
   const headlineWords = t.heroHeadline.split(" ");
 
   const scrollToForm = () => {
-    handlePlayMetricsClick();
-    window.open(PLAYMETRICS_URL, '_blank');
+    document.getElementById("register-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -399,8 +390,7 @@ function Timeline({ t }: { t: any }) {
 
 function UrgencyStrip({ t }: { t: any }) {
   const scrollToForm = () => {
-    handlePlayMetricsClick();
-    window.open(PLAYMETRICS_URL, '_blank');
+    document.getElementById("register-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -485,13 +475,69 @@ function FAQ({ t }: { t: any }) {
 }
 
 function RegistrationForm({ t }: { t: any }) {
-  const PLAYMETRICS_URL = "https://playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0xMTEzLTE3Nzg1OTk1NTh8WnNxdXA4RGhmaXJKVkU5aE1TcUYxODcwb1hTeXNwR1lZT25QcFUxNm5sdz0=&program_id=95068&fbclid=PAT01DUAQwo8RleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafrZeEPBnKTgWEo6imNW8JVh2II6iFkdxngWiMguSPh0ONjQeIMSDpJxbi3OQ_aem_erpg7MfdbbDrfOy04jsTTA";
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [selectedLoc, setSelectedLoc] = useState("");
+  const [selectedPos, setSelectedPos] = useState("");
 
-  const handlePlayMetricsClick = () => {
+  const positions = [
+    t.posGK, t.posLB, t.posRB, t.posCB, 
+    t.posLM, t.posRM, t.posCM, t.posFW
+  ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const WEBHOOK_URL = '#';
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+    
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Lead');
     }
+
+    setIsSubmitting(false);
+    setIsSuccess(true);
   };
+
+  if (isSuccess) {
+    return (
+      <section id="register-form" className="pb-24 pt-8 px-4 bg-[#0a0a0a]">
+        <div className="max-w-2xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white/5 border-t-4 border-t-red border-x border-b border-white/10 rounded-2xl p-12 text-center flex flex-col items-center"
+          >
+            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
+              <Check className="w-10 h-10 text-green-500" />
+            </div>
+            <h3 className="font-anton text-4xl mb-4">{t.successTitle}</h3>
+            <p className="text-white/60 mb-8">{t.successSub}</p>
+            <Image 
+              src="https://traccoveredbridge.com/wp-content/uploads/2024/03/Covered_Bridge_logo.png" 
+              alt="Logo" 
+              width={60} 
+              height={60} 
+              className="opacity-50"
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="register-form" className="pb-24 pt-8 px-4 bg-[#0a0a0a]">
@@ -505,35 +551,144 @@ function RegistrationForm({ t }: { t: any }) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-white/5 border-t-4 border-t-red border-x border-b border-white/10 rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl flex flex-col items-center text-center relative overflow-hidden"
+          className="bg-white/5 border-t-4 border-t-red border-x border-b border-white/10 rounded-2xl p-6 md:p-10 shadow-2xl"
         >
-          {/* Decorative background elements */}
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-red/10 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
-          </div>
-
-          <div className="relative z-10 w-full">
-            <a 
-              href={PLAYMETRICS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handlePlayMetricsClick}
-              className="w-full sm:w-auto inline-flex h-12 sm:h-14 px-6 sm:px-10 bg-red hover:bg-[#AA0000] text-white font-anton text-lg sm:text-xl tracking-wide rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(204,0,0,0.4)] items-center justify-center btn-shimmer group"
-            >
-              <span>{t.submitBtn}</span>
-              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
+          <form onSubmit={handleSubmit} className="space-y-8">
             
-            <p className="mt-4 text-xs sm:text-sm text-white/50 font-medium flex items-center justify-center gap-1.5">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-              Secure registration via PlayMetrics
-            </p>
-          </div>
+            {/* Consent */}
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <div className="relative flex items-center justify-center mt-1">
+                <input type="checkbox" name="consent" required className="peer sr-only" />
+                <div className="w-5 h-5 border-2 border-white/30 rounded bg-transparent peer-checked:bg-red peer-checked:border-red transition-all group-hover:border-white/50" />
+                <Check className="w-3 h-3 text-white absolute opacity-0 peer-checked:opacity-100 pointer-events-none" />
+              </div>
+              <span className="text-sm text-white/70 leading-relaxed">{t.consent}</span>
+            </label>
+
+            {/* Location */}
+            <div>
+              <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-3">{t.locationLabel} *</label>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {[
+                  { id: "euharlee", label: "Euharlee — May 5 & 7" },
+                  { id: "gainesville", label: "Gainesville — May 4 & 6" },
+                  { id: "marietta", label: "Marietta — May 8" }
+                ].map(loc => (
+                  <button
+                    key={loc.id}
+                    type="button"
+                    onClick={() => setSelectedLoc(loc.id)}
+                    className={`p-4 rounded-xl border text-sm font-bold transition-all ${
+                      selectedLoc === loc.id 
+                        ? 'bg-red border-red text-white shadow-[0_0_15px_rgba(204,0,0,0.3)]' 
+                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    {loc.label}
+                  </button>
+                ))}
+              </div>
+              {/* Hidden input for form validation */}
+              <input type="text" name="location" required value={selectedLoc} onChange={() => {}} className="sr-only" />
+            </div>
+
+            <div className="flex items-center gap-4 py-4">
+              <div className="h-px flex-1 bg-white/10" />
+              <span className="text-xs font-bold uppercase tracking-widest text-white/40">{t.playerInfoLabel}</span>
+              <div className="h-px flex-1 bg-white/10" />
+            </div>
+
+            {/* Grid Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">{t.nameLabel} *</label>
+                <input type="text" name="playerName" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">{t.dobLabel} *</label>
+                <input type="date" name="dob" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all [color-scheme:dark]" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">{t.emailLabel} *</label>
+                <input type="email" name="email" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">{t.phoneLabel} *</label>
+                <input type="tel" name="phone" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">{t.cityLabel} *</label>
+                <input type="text" name="city" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">{t.zipLabel} *</label>
+                <input type="text" name="zip" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all" />
+              </div>
+            </div>
+
+            {/* Position */}
+            <div>
+              <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-3">{t.positionLabel} *</label>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {positions.map(pos => (
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    key={pos}
+                    type="button"
+                    onClick={() => setSelectedPos(pos)}
+                    className={`p-3 rounded-lg border text-xs font-bold transition-all ${
+                      selectedPos === pos 
+                        ? 'bg-red border-red text-white shadow-[0_0_10px_rgba(204,0,0,0.3)]' 
+                        : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    {pos}
+                  </motion.button>
+                ))}
+              </div>
+              <input type="text" name="position" required value={selectedPos} onChange={() => {}} className="sr-only" />
+            </div>
+
+            {/* Additional Info */}
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">{t.hearLabel} *</label>
+                <select 
+                  name="hearAbout" 
+                  required 
+                  defaultValue=""
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all appearance-none cursor-pointer"
+                >
+                  <option value="" disabled className="bg-[#0a0a0a]">{t.optional}</option>
+                  {Object.entries(t.hearOptions).map(([key, value]) => (
+                    <option key={key} value={key} className="bg-[#0a0a0a]">
+                      {value as string}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">
+                  {t.teamLabel} <span className="text-white/30 normal-case font-normal ml-1">({t.optional})</span>
+                </label>
+                <input type="text" name="team" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold uppercase tracking-wider text-white/50 mb-2">{t.levelLabel} *</label>
+                <input type="text" name="level" required className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red focus:shadow-[0_0_0_2px_rgba(204,0,0,0.3)] transition-all" />
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              disabled={isSubmitting}
+              className="w-full min-h-[56px] bg-red hover:bg-red/90 text-white font-bold text-lg tracking-widest uppercase rounded-lg transition-all hover:shadow-[0_0_20px_rgba(204,0,0,0.4)] relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+              {isSubmitting ? "..." : t.submitBtn}
+            </button>
+
+          </form>
         </motion.div>
       </div>
     </section>

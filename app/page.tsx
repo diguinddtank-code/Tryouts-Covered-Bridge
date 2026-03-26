@@ -6,6 +6,7 @@ import { Check, ChevronDown, Trophy, Target, Users, Instagram } from "lucide-rea
 import { useLanguage } from "@/context/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
 import TravelSection from "@/components/TravelSection";
+import ScheduleSection from "@/components/ScheduleSection";
 import LeaguesSection from "@/components/LeaguesSection";
 import { motion } from "motion/react";
 
@@ -35,17 +36,62 @@ export default function TryoutsLanding() {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  const PLAYMETRICS_URL = "https://playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0xMTEzLTE3Nzg1OTk1NTh8WnNxdXA4RGhmaXJKVkU5aE1TcUYxODcwb1hTeXNwR1lZT25QcFUxNm5sdz0=&program_id=95068&fbclid=PAT01DUAQwo8RleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafrZeEPBnKTgWEo6imNW8JVh2II6iFkdxngWiMguSPh0ONjQeIMSDpJxbi3OQ_aem_erpg7MfdbbDrfOy04jsTTA";
-
-  const handlePlayMetricsClick = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // ─── WEBHOOK: POST form data here ──────────────────────────────
+    const WEBHOOK_URL = '#'; // Replace with Zapier / Make / n8n endpoint
+    // ─── GOOGLE ANALYTICS ──────────────────────────────────────────
+    // gtag('event', 'tryout_registration', {...});
+    // ─── META PIXEL ────────────────────────────────────────────────
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'Lead');
+    }
+    // ─── TIKTOK PIXEL ──────────────────────────────────────────────
+    // ttq.track('SubmitForm');
+    
+    setIsSubmitted(true);
+    triggerConfetti();
+  };
+
+  const triggerConfetti = () => {
+    const colors = ['#00C8FF', '#FFB800', '#E8232A', '#FFFFFF'];
+    for (let i = 0; i < 60; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.width = '8px';
+      confetti.style.height = '8px';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = '-10px';
+      confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      confetti.style.zIndex = '9999';
+      confetti.style.pointerEvents = 'none';
+      document.body.appendChild(confetti);
+
+      const angle = Math.random() * Math.PI * 2;
+      const velocity = 2 + Math.random() * 3;
+      let x = 0;
+      let y = 0;
+      let rotation = Math.random() * 360;
+
+      const animate = () => {
+        y += velocity;
+        x += Math.sin(angle) * 2;
+        rotation += 5;
+        confetti.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+        
+        if (y < window.innerHeight) {
+          requestAnimationFrame(animate);
+        } else {
+          confetti.remove();
+        }
+      };
+      requestAnimationFrame(animate);
     }
   };
 
   const scrollToForm = () => {
-    handlePlayMetricsClick();
-    window.open(PLAYMETRICS_URL, '_blank');
+    formRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -120,47 +166,131 @@ export default function TryoutsLanding() {
             </div>
           </div>
 
-          {/* CTA CARD */}
-          <div id="register-form" ref={formRef} className="w-full max-w-3xl px-4 sm:px-6">
-            <div className="bg-white p-6 sm:p-8 md:p-10 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden border-t-4 border-t-red flex flex-col items-center text-center">
-              {/* Decorative background elements */}
-              <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute -top-24 -right-24 w-48 h-48 bg-red/5 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-slate-200/50 rounded-full blur-3xl"></div>
-              </div>
+          {/* FORM CARD */}
+          <div id="register-form" ref={formRef} className="w-full max-w-4xl px-4 sm:px-6">
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden border-t-4 border-t-red">
+              
+              {!isSubmitted ? (
+                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="mb-6 text-center">
+                    <h2 className="font-anton font-black italic text-2xl md:text-3xl tracking-wide mb-1 text-slate-900">
+                      {t.form.title} <span className="text-red">{t.form.titleAccent}</span>
+                    </h2>
+                    <p className="font-dm-sans text-xs md:text-sm text-slate-500 font-medium">
+                      {t.form.subtitle}
+                    </p>
+                  </div>
 
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 w-full relative z-10">
-                <div className="mb-5 md:mb-6">
-                  <h2 className="font-anton font-black italic text-3xl sm:text-4xl md:text-5xl tracking-wide mb-2 text-slate-900 leading-[1.1]">
-                    {t.form.title} <span className="text-red">{t.form.titleAccent}</span>
-                  </h2>
-                  <p className="font-dm-sans text-sm sm:text-base text-slate-600 font-medium max-w-xl mx-auto leading-relaxed">
-                    {t.form.subtitle}
-                  </p>
-                </div>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+                      {/* Player Details */}
+                      <div className="flex flex-col gap-1.5">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.playerName}</label>
+                        <input name="playerName" required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm placeholder:text-slate-400 border border-slate-200" />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.dob}</label>
+                        <input name="dob" required type="date" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.ageGroup}</label>
+                        <select name="ageGroup" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
+                          <option value="" className="text-slate-400">{t.form.fields.selectAgeGroup}</option>
+                          {['U9', 'U10', 'U11', 'U12', 'U13', 'U14', 'U15', 'U16', 'U17', 'U18', 'U19'].map(age => (
+                            <option key={age} value={age}>{age}</option>
+                          ))}
+                        </select>
+                      </div>
 
-                <a 
-                  href={PLAYMETRICS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={handlePlayMetricsClick}
-                  className="w-full sm:w-auto inline-flex h-12 sm:h-14 px-6 sm:px-10 bg-red hover:bg-[#AA0000] text-white font-anton text-lg sm:text-xl tracking-wide rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(204,0,0,0.4)] items-center justify-center btn-shimmer group"
-                >
-                  <span>{t.form.submit}</span>
-                  <svg className="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.position}</label>
+                        <select name="position" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
+                          <option value="" className="text-slate-400">{t.form.fields.selectPosition}</option>
+                          {t.form.fields.options.positions.map(pos => (
+                            <option key={pos} value={pos}>{pos}</option>
+                          ))}
+                        </select>
+                      </div>
 
-                <div className="flex flex-wrap justify-center gap-3 sm:gap-5 mt-5 sm:mt-6">
-                  {t.form.trust.map((text, i) => (
-                    <div key={i} className="flex items-center gap-1.5 text-slate-500 font-dm-sans text-xs font-medium">
-                      <Check className="w-3.5 h-3.5 text-red" />
-                      <span>{text}</span>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.location}</label>
+                        <select name="location" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
+                          <option value="" className="text-slate-400">{t.form.fields.selectLocation}</option>
+                          <option value="Cumming">Cumming</option>
+                          <option value="Euharlee">Euharlee</option>
+                          <option value="Gainesville">Gainesville</option>
+                          <option value="Marietta">Marietta</option>
+                        </select>
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.cityState}</label>
+                        <input name="cityState" required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                      </div>
+
+                      {/* Parent Details */}
+                      <div className="flex flex-col gap-1.5">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.parentName}</label>
+                        <input name="parentName" required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.parentEmail}</label>
+                        <input name="parentEmail" required type="email" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.parentPhone}</label>
+                        <input name="parentPhone" required type="tel" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                      </div>
+
+                      {/* Other Details */}
+                      <div className="flex flex-col gap-1.5 md:col-span-1">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.hearAbout}</label>
+                        <select name="hearAbout" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
+                          <option value="" className="text-slate-400">{t.form.fields.selectHearAbout}</option>
+                          {t.form.fields.options.hearAbout.map(opt => (
+                            <option key={opt} value={opt}>{opt}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="flex flex-col gap-1.5 sm:col-span-2 md:col-span-2">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.anythingElse}</label>
+                        <input name="anythingElse" type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
+                      </div>
                     </div>
-                  ))}
+
+                    <button type="submit" className="w-full h-14 mt-6 bg-red hover:bg-[#AA0000] text-white font-anton text-xl tracking-wide rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(204,0,0,0.5)] flex items-center justify-center btn-shimmer">
+                      {t.form.submit}
+                    </button>
+                  </form>
+
+                  <div className="flex flex-wrap justify-center gap-4 mt-6">
+                    {t.form.trust.map((text, i) => (
+                      <div key={i} className="flex items-center gap-1.5 text-slate-500 font-dm-sans text-[11px] font-medium">
+                        <Check className="w-3.5 h-3.5 text-red" />
+                        <span>{text}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center text-center py-16 animate-in zoom-in-95 duration-500">
+                  <div className="relative w-20 h-20 mb-6 text-red">
+                    <svg className="w-full h-full" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="4" className="animate-draw-check" strokeDasharray="283" strokeDashoffset="283" style={{ animation: 'draw-check 1s ease-out forwards' }} />
+                      <path d="M30 50 L45 65 L70 35" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" className="animate-draw-check" strokeDasharray="100" strokeDashoffset="100" style={{ animation: 'draw-check 0.5s ease-out 0.5s forwards' }} />
+                    </svg>
+                  </div>
+                  <h2 className="font-anton font-black italic text-3xl tracking-wide mb-3 text-slate-900">{t.form.success.title}</h2>
+                  <p className="font-dm-sans text-sm text-slate-600 mb-8 max-w-sm">
+                    {t.form.success.body}
+                  </p>
+                  <button 
+                    onClick={() => setIsSubmitted(false)}
+                    className="text-red font-dm-sans font-semibold uppercase tracking-wide text-xs hover:text-red-400 transition-colors flex items-center gap-2"
+                  >
+                    {t.form.success.reset}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -334,6 +464,8 @@ export default function TryoutsLanding() {
             </div>
           </div>
         </section>
+
+        <ScheduleSection />
 
         {/* SECTION - TRAVEL & EXCHANGE PROGRAM */}
         <TravelSection />
