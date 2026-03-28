@@ -5,7 +5,7 @@ export const translations = {
     clubName: "Covered Bridge SC",
     academyDivision: "Academy Division",
     heroHeadline: "YOUR PATH TO MLS STARTS NOW",
-    heroSubheadline: "Official MLS Next Tryouts · Covered Bridge SC · May 2025",
+    heroSubheadline: "Official MLS Next Tryouts · Covered Bridge SC · May 2026",
     badgeLocations: "3 Locations",
     badgeAges: "All Age Groups U13–U19",
     badgeFree: "Secure Registration",
@@ -91,13 +91,13 @@ export const translations = {
     submitBtn: "SECURE MY SPOT",
     successTitle: "You're registered! We'll be in touch within 48 hours.",
     successSub: "Check your email for confirmation.",
-    footerText: "© 2025 Covered Bridge SC · MLS Next Academy Division"
+    footerText: "© 2026 Covered Bridge SC · MLS Next Academy Division"
   },
   ES: {
     clubName: "Covered Bridge SC",
     academyDivision: "División de Academia",
     heroHeadline: "TU CAMINO AL MLS EMPIEZA AHORA",
-    heroSubheadline: "Pruebas Oficiales MLS Next · Covered Bridge SC · Mayo 2025",
+    heroSubheadline: "Pruebas Oficiales MLS Next · Covered Bridge SC · Mayo 2026",
     badgeLocations: "3 Ubicaciones",
     badgeAges: "Todas las Categorías U13–U19",
     badgeFree: "Registro Seguro",
@@ -183,13 +183,13 @@ export const translations = {
     submitBtn: "ASEGURAR MI LUGAR",
     successTitle: "¡Estás registrado! Nos pondremos en contacto en 48 horas.",
     successSub: "Revisa tu correo para la confirmación.",
-    footerText: "© 2025 Covered Bridge SC · División de Academia MLS Next"
+    footerText: "© 2026 Covered Bridge SC · División de Academia MLS Next"
   },
   PT: {
     clubName: "Covered Bridge SC",
     academyDivision: "Divisão de Academia",
     heroHeadline: "SEU CAMINHO PARA O MLS COMEÇA AGORA",
-    heroSubheadline: "Seletivas Oficiais MLS Next · Covered Bridge SC · Maio 2025",
+    heroSubheadline: "Seletivas Oficiais MLS Next · Covered Bridge SC · Maio 2026",
     badgeLocations: "3 Localizações",
     badgeAges: "Todas as Categorias U13–U19",
     badgeFree: "Inscrição Segura",
@@ -275,6 +275,6 @@ export const translations = {
     submitBtn: "GARANTIR MINHA VAGA",
     successTitle: "Você está inscrito! Entraremos em contato em 48 horas.",
     successSub: "Verifique seu e-mail para confirmação.",
-    footerText: "© 2025 Covered Bridge SC · Divisão de Academia MLS Next"
+    footerText: "© 2026 Covered Bridge SC · Divisão de Academia MLS Next"
   }
 };

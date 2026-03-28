@@ -79,7 +79,7 @@ function Hero({ t }: { t: any }) {
   const [isStarted, setIsStarted] = useState(false);
 
   useEffect(() => {
-    const targetDate = new Date("May 4, 2025 00:00:00").getTime();
+    const targetDate = new Date("May 4, 2026 00:00:00").getTime();
     
     const interval = setInterval(() => {
       const now = new Date().getTime();
