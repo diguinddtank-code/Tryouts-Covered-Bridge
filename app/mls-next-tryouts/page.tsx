@@ -47,7 +47,7 @@ function Navbar({ lang, setLang, t }: { lang: Language; setLang: (l: Language) =
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Image 
-            src="https://traccoveredbridge.com/wp-content/uploads/2024/03/Covered_Bridge_logo.png" 
+            src="https://traccoveredbridge.com/images/logo.png" 
             alt="Covered Bridge SC" 
             width={48} 
             height={48} 
@@ -124,7 +124,7 @@ function Hero({ t }: { t: any }) {
         >
           <div className="relative w-20 h-20 md:w-28 md:h-28">
             <Image 
-              src="https://traccoveredbridge.com/wp-content/uploads/2024/03/Covered_Bridge_logo.png"
+              src="https://traccoveredbridge.com/images/logo.png"
               alt="Covered Bridge SC"
               fill
               className="object-contain drop-shadow-2xl"
@@ -525,7 +525,7 @@ function RegistrationForm({ t }: { t: any }) {
             <h3 className="font-anton text-4xl mb-4">{t.successTitle}</h3>
             <p className="text-white/60 mb-8">{t.successSub}</p>
             <Image 
-              src="https://traccoveredbridge.com/wp-content/uploads/2024/03/Covered_Bridge_logo.png" 
+              src="https://traccoveredbridge.com/images/logo.png" 
               alt="Logo" 
               width={60} 
               height={60} 
@@ -699,7 +699,7 @@ function Footer({ t }: { t: any }) {
     <footer className="bg-[#050505] border-t border-white/5 py-12 px-4 text-center">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         <Image 
-          src="https://traccoveredbridge.com/wp-content/uploads/2024/03/Covered_Bridge_logo.png" 
+          src="https://traccoveredbridge.com/images/logo.png" 
           alt="Logo" 
           width={40} 
           height={40} 

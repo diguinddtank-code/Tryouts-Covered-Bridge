@@ -15,6 +15,8 @@ export default function TryoutsLanding() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [registeringCount, setRegisteringCount] = useState(4);
+  const [selectedLoc, setSelectedLoc] = useState("");
+  const [selectedPos, setSelectedPos] = useState("");
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -112,7 +114,7 @@ export default function TryoutsLanding() {
       {/* Mobile Sticky CTA */}
       <div className="md:hidden fixed top-0 left-0 w-full bg-[#050C1A]/95 backdrop-blur-md z-50 border-b border-white/10 p-3 flex justify-between items-center shadow-lg">
         <div className="flex items-center">
-          <Image src="https://traccoveredbridge.com/wp-content/uploads/2024/03/Covered_Bridge_logo.png" alt="Logo" width={40} height={40} className="object-contain" referrerPolicy="no-referrer" />
+          <Image src="https://traccoveredbridge.com/images/logo.png" alt="Logo" width={40} height={40} className="object-contain" referrerPolicy="no-referrer" />
         </div>
         <div className="flex items-center gap-2">
           <LanguageSelector isMobile />
@@ -125,7 +127,7 @@ export default function TryoutsLanding() {
       {/* Desktop Header */}
       <div className="hidden md:flex absolute top-0 left-0 w-full z-50 px-10 py-6 justify-between items-start max-w-[1400px] mx-auto right-0">
         <Image 
-          src="https://traccoveredbridge.com/wp-content/uploads/2024/03/Covered_Bridge_logo.png" 
+          src="https://traccoveredbridge.com/images/logo.png" 
           alt="Covered Bridge SC Logo" 
           width={100} 
           height={100} 
@@ -136,52 +138,91 @@ export default function TryoutsLanding() {
       </div>
 
       {/* HERO & FORM UNIFIED SECTION */}
-      <div className="relative w-full min-h-screen flex flex-col justify-center pt-20 md:pt-0">
-        {/* Video Background */}
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          src="https://traccoveredbridge.com/wp-content/uploads/2023/05/intro.mp4"
-        />
-        {/* Dark Overlay - Gradient to make video more visible while keeping text readable and blending into the next section */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050C1A]/60 via-[#050C1A]/80 to-[#050C1A] z-10"></div>
+      <div className="relative w-full min-h-[100svh] flex flex-col pt-20 md:pt-28 pb-10 overflow-hidden bg-black">
+        {/* Main Static Stadium Background */}
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=3000&auto=format&fit=crop" 
+            alt="Soccer Stadium" 
+            fill 
+            className="object-cover opacity-70"
+            priority
+          />
+        </div>
+        
+        {/* Sporty Overlays to blend with dark theme */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-[#CC0000]/20 mix-blend-multiply z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+        
+        {/* Subtle mesh/dot matrix texture */}
+        <div className="absolute inset-0 opacity-20 mix-blend-overlay z-10" style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
 
-        <div className="relative z-20 w-full max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-24 flex flex-col items-center justify-center gap-10">
+
+        <div className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col lg:flex-row flex-1 items-center justify-between gap-12 lg:gap-8">
           
-          {/* HERO TEXT */}
-          <div className="w-full flex flex-col items-center text-center mt-8 md:mt-0">
-            <h1 className="font-anton font-black italic text-2xl md:text-3xl tracking-wide mb-1 md:hidden">{t.nav.clubName}</h1>
-            <p className="font-dm-sans text-xs tracking-widest text-gray-300 uppercase font-semibold mb-8 md:mb-12 md:hidden">
+          {/* HERO TEXT: Left aligned on desktop */}
+          <div className="w-full lg:w-[50%] flex flex-col items-center lg:items-start text-center lg:text-left mt-8 lg:mt-0">
+            <h1 className="font-anton font-black italic text-2xl md:text-3xl tracking-wide mb-1 md:hidden text-white drop-shadow-lg">{t.nav.clubName}</h1>
+            <p className="font-dm-sans text-[10px] md:text-sm tracking-[0.2em] text-red uppercase font-black mb-6 md:mb-8 md:hidden drop-shadow-sm">
               {t.hero.est}
             </p>
 
-            <h2 className="font-anton font-black italic text-6xl md:text-8xl lg:text-[7rem] leading-[0.85] tracking-wide uppercase drop-shadow-[0_0_30px_rgba(204,0,0,0.4)]">
-              <span className="block text-white">{t.hero.line1}</span>
-              <span className="block text-red">{t.hero.line2}</span>
+            <h2 className="font-anton font-black italic text-6xl md:text-8xl lg:text-[7.5rem] leading-[0.85] tracking-wide uppercase drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)] flex flex-col items-center lg:items-start">
+              <span className="block text-white transform -skew-x-6 relative">
+                {t.hero.line1}
+              </span>
+              <span className="block text-red transform -skew-x-6 relative">
+                {t.hero.line2}
+              </span>
             </h2>
-            <div className="h-[4px] w-12 bg-red my-6 rounded-full shadow-[0_0_15px_rgba(204,0,0,0.6)]"></div>
-            <p className="font-dm-sans text-lg md:text-xl text-white/90 max-w-2xl font-medium drop-shadow-md">
+            
+            {/* Speed Slash Element */}
+            <div className="h-[6px] w-24 bg-red my-8 skew-x-[-15deg] shadow-[0_0_20px_rgba(204,0,0,0.5)] hidden lg:block"></div>
+            
+            <p className="font-dm-sans text-lg md:text-xl text-white/90 max-w-lg font-medium drop-shadow-md mt-6 lg:mt-0">
               {t.hero.sub}
             </p>
             
-            {/* Urgency Badge */}
-            <div className="inline-flex items-center gap-2 bg-black/40 border border-white/10 rounded-full px-3 py-1.5 mt-8 backdrop-blur-md shadow-lg">
-              <div className="relative flex h-2 w-2">
-                <span className="animate-pulse-dot absolute inline-flex h-full w-full rounded-full bg-red opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-red"></span>
+            {/* INLINE LEAGUES DISPLAY - ELITE SPORT STYLING */}
+            <div className="mt-12 w-full max-w-[500px] relative group self-center lg:self-start">
+              {/* Glowing animated background */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-red via-red-600 to-transparent rounded-2xl blur-md opacity-40 group-hover:opacity-70 transition duration-500"></div>
+              
+              <div className="relative bg-black/80 border border-white/20 p-6 md:p-8 rounded-2xl backdrop-blur-xl">
+                <p className="font-dm-sans text-xs md:text-sm uppercase font-black text-white/90 tracking-[0.25em] mb-6 flex items-center gap-3">
+                  <span className="w-6 h-[2px] bg-red"></span>
+                  Proudly Competing In
+                </p>
+                <div className="flex items-center justify-between gap-4">
+                   {[
+                    { src: "https://traccoveredbridge.com/images/leagues/ga_soccer_logo.png", alt: "Georgia Soccer" },
+                    { src: "https://traccoveredbridge.com/images/leagues/national_logo.png", alt: "USYS National" },
+                    { src: "https://traccoveredbridge.com/images/leagues/ea_logo.png", alt: "EA League" },
+                    { src: "https://images.mlssoccer.com/image/upload/v1664742553/assets/logos/mls-next-2022-COLOR-800x800.png", alt: "MLS Next" }
+                  ].map((logo, idx) => (
+                    <div key={idx} className="relative w-16 h-16 md:w-20 md:h-20 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.6)] hover:scale-110 transition-all duration-300 transform-gpu cursor-pointer">
+                      <Image src={logo.src} alt={logo.alt} fill className="object-contain" referrerPolicy="no-referrer" />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <span className="font-dm-sans text-[11px] md:text-xs font-medium tracking-wide text-white/90 transition-all duration-300">
+            </div>
+            
+            {/* Urgency Badge */}
+            <div className="inline-flex items-center justify-center gap-2 bg-red border border-red text-white rounded-full px-5 py-2 mt-8 lg:mt-10 shadow-[0_0_20px_rgba(204,0,0,0.3)] animate-pulse-slow lg:self-start">
+              <div className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+              </div>
+              <span className="font-dm-sans text-[12px] md:text-xs font-bold tracking-wide">
                 {t.hero.urgency.replace("4", registeringCount.toString())}
               </span>
             </div>
           </div>
 
-          {/* FORM CARD */}
-          <div id="register-form" ref={formRef} className="w-full max-w-4xl px-4 sm:px-6">
-            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden border-t-4 border-t-red">
+          {/* FORM CARD: Right aligned on desktop */}
+          <div id="register-form" ref={formRef} className="w-full lg:w-[45%] max-w-[500px] lg:max-w-[550px] px-0 sm:px-4 shrink-0 relative z-30">
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] relative overflow-hidden border-t-[6px] border-t-red transform lg:rotate-1 hover:rotate-0 transition-transform duration-500">
               
               {!isSubmitted ? (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -195,7 +236,7 @@ export default function TryoutsLanding() {
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
                       {/* Player Details */}
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.playerName}</label>
@@ -205,46 +246,8 @@ export default function TryoutsLanding() {
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.dob}</label>
                         <input name="dob" required type="date" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
                       </div>
-                      <div className="flex flex-col gap-1.5">
-                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.ageGroup}</label>
-                        <select name="ageGroup" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
-                          <option value="" className="text-slate-400">{t.form.fields.selectAgeGroup}</option>
-                          {['U9', 'U10', 'U11', 'U12', 'U13', 'U14', 'U15', 'U16', 'U17', 'U18', 'U19'].map(age => (
-                            <option key={age} value={age}>{age}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div className="flex flex-col gap-1.5">
-                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.position}</label>
-                        <select name="position" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
-                          <option value="" className="text-slate-400">{t.form.fields.selectPosition}</option>
-                          {t.form.fields.options.positions.map(pos => (
-                            <option key={pos} value={pos}>{pos}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div className="flex flex-col gap-1.5">
-                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.location}</label>
-                        <select name="location" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
-                          <option value="" className="text-slate-400">{t.form.fields.selectLocation}</option>
-                          <option value="Cumming">Cumming</option>
-                          <option value="Euharlee">Euharlee</option>
-                          <option value="Gainesville">Gainesville</option>
-                          <option value="Marietta">Marietta</option>
-                        </select>
-                      </div>
-                      <div className="flex flex-col gap-1.5">
-                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.cityState}</label>
-                        <input name="cityState" required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
-                      </div>
-
-                      {/* Parent Details */}
-                      <div className="flex flex-col gap-1.5">
-                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.parentName}</label>
-                        <input name="parentName" required type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
-                      </div>
+                      
+                      {/* Contact Info (Kept keys as parentEmail/Phone for webhook) */}
                       <div className="flex flex-col gap-1.5">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.parentEmail}</label>
                         <input name="parentEmail" required type="email" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
@@ -254,8 +257,62 @@ export default function TryoutsLanding() {
                         <input name="parentPhone" required type="tel" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
                       </div>
 
-                      {/* Other Details */}
-                      <div className="flex flex-col gap-1.5 md:col-span-1">
+                      <div className="flex flex-col gap-1.5 sm:col-span-2">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.ageGroup}</label>
+                        <select name="ageGroup" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
+                          <option value="" className="text-slate-400">{t.form.fields.selectAgeGroup}</option>
+                          {['U9', 'U10', 'U11', 'U12', 'U13', 'U14', 'U15', 'U16', 'U17', 'U18', 'U19'].map(age => (
+                            <option key={age} value={age}>{age}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Position Custom Selector */}
+                      <div className="flex flex-col gap-1.5 sm:col-span-2 mt-2">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.position}</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+                          {t.form.fields.options.positions.map((pos) => (
+                            <button
+                              key={pos}
+                              type="button"
+                              onClick={() => setSelectedPos(pos)}
+                              className={`p-2 rounded-lg border text-xs font-bold transition-all flex items-center justify-center text-center ${
+                                selectedPos === pos 
+                                  ? 'bg-red border-red text-white shadow-md' 
+                                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                              }`}
+                            >
+                              {pos}
+                            </button>
+                          ))}
+                        </div>
+                        <input type="text" name="position" required value={selectedPos} onChange={() => {}} className="sr-only" />
+                      </div>
+
+                      {/* Location Custom Selector */}
+                      <div className="flex flex-col gap-1.5 sm:col-span-2 mt-2">
+                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.location}</label>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                          {["Cumming", "Euharlee", "Gainesville", "Marietta"].map(loc => (
+                            <button
+                              key={loc}
+                              type="button"
+                              onClick={() => setSelectedLoc(loc)}
+                              className={`p-3 rounded-xl border text-sm font-bold transition-all ${
+                                selectedLoc === loc 
+                                  ? 'bg-red border-red text-white shadow-md' 
+                                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                              }`}
+                            >
+                              {loc}
+                            </button>
+                          ))}
+                        </div>
+                        <input type="text" name="location" required value={selectedLoc} onChange={() => {}} className="sr-only" />
+                      </div>
+
+                      {/* Hear About (Optional or Selection) */}
+                      <div className="flex flex-col gap-1.5 sm:col-span-2 mt-2">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.hearAbout}</label>
                         <select name="hearAbout" required className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200 appearance-none">
                           <option value="" className="text-slate-400">{t.form.fields.selectHearAbout}</option>
@@ -264,10 +321,11 @@ export default function TryoutsLanding() {
                           ))}
                         </select>
                       </div>
-                      <div className="flex flex-col gap-1.5 sm:col-span-2 md:col-span-2">
-                        <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">{t.form.fields.anythingElse}</label>
-                        <input name="anythingElse" type="text" className="bg-gray-50 text-slate-900 px-3 py-2.5 font-dm-sans text-sm focus:outline-none focus:ring-2 focus:ring-red/20 focus:border-red transition-all duration-300 rounded-lg shadow-sm border border-slate-200" />
-                      </div>
+
+                      {/* Webhook Compatibility Hidden Fields */}
+                      <input type="hidden" name="cityState" value="Not Provided" />
+                      <input type="hidden" name="parentName" value="Not Provided" />
+                      <input type="hidden" name="anythingElse" value="" />
                     </div>
 
                     <button type="submit" className="w-full h-14 mt-6 bg-red hover:bg-[#AA0000] text-white font-anton text-xl tracking-wide rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(204,0,0,0.5)] flex items-center justify-center btn-shimmer">
@@ -306,32 +364,6 @@ export default function TryoutsLanding() {
               )}
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Marquee - Now below the hero section */}
-      <div className="w-full bg-black/60 border-y border-white/10 py-4 shadow-2xl marquee-container relative z-20">
-        <div className="marquee-content inline-flex items-center">
-          {[...Array(4)].map((_, arrayIndex) => (
-            <div key={arrayIndex} className="inline-flex items-center gap-12 md:gap-20 px-6 md:px-10">
-              {[
-                { src: "https://traccoveredbridge.com/wp-content/uploads/2023/05/logo_ga_soccer-150x150.png", alt: "Georgia Soccer" },
-                { src: "https://traccoveredbridge.com/wp-content/uploads/2023/05/usys-150x150.png", alt: "USYS" },
-                { src: "https://traccoveredbridge.com/wp-content/uploads/2023/05/us_youth-1-150x150.png", alt: "US Youth Soccer" },
-                { src: "https://images.mlssoccer.com/image/upload/v1664742553/assets/logos/mls-next-2022-COLOR-800x800.png", alt: "MLS Next" }
-              ].map((logo, i) => (
-                <div key={`${arrayIndex}-${i}`} className="flex items-center justify-center w-14 h-14 md:w-16 md:h-16 relative opacity-100 md:opacity-70 hover:opacity-100 transition-opacity duration-300 grayscale-0 md:grayscale hover:grayscale-0">
-                  <Image 
-                    src={logo.src} 
-                    alt={logo.alt} 
-                    fill
-                    className="object-contain drop-shadow-lg"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-              ))}
-            </div>
-          ))}
         </div>
       </div>
 
@@ -616,7 +648,7 @@ export default function TryoutsLanding() {
         <footer className="bg-[#050C1A] py-12 border-t border-white/5">
           <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <Image src="https://traccoveredbridge.com/wp-content/uploads/2024/03/Covered_Bridge_logo.png" alt="Logo" width={40} height={40} className="object-contain opacity-50" referrerPolicy="no-referrer" />
+              <Image src="https://traccoveredbridge.com/images/logo.png" alt="Logo" width={40} height={40} className="object-contain opacity-50" referrerPolicy="no-referrer" />
               <span className="font-anton font-black italic text-lg tracking-wide text-white/50">{t.nav.clubName}</span>
             </div>
             

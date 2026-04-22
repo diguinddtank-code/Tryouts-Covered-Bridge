@@ -15,16 +15,16 @@ const featuredLeagues = [
   {
     name: "USYS NATIONAL",
     desc: "The largest youth soccer organization, providing a proven pathway to excellence.",
-    logo: "https://traccoveredbridge.com/wp-content/uploads/2023/05/usys-150x150.png",
+    logo: "https://traccoveredbridge.com/images/leagues/national_logo.png",
     width: 110,
     height: 110,
   }
 ];
 
 const allLogos = [
-  { name: "Georgia Soccer", src: "https://traccoveredbridge.com/wp-content/uploads/2023/05/logo_ga_soccer-150x150.png", w: 100, h: 100 },
-  { name: "USYS", src: "https://traccoveredbridge.com/wp-content/uploads/2023/05/usys-150x150.png", w: 100, h: 100 },
-  { name: "US Youth Soccer", src: "https://traccoveredbridge.com/wp-content/uploads/2023/05/us_youth-1-150x150.png", w: 100, h: 100 },
+  { name: "Georgia Soccer", src: "https://traccoveredbridge.com/images/leagues/ga_soccer_logo.png", w: 100, h: 100 },
+  { name: "USYS", src: "https://traccoveredbridge.com/images/leagues/national_logo.png", w: 100, h: 100 },
+  { name: "EA LEAGUE", src: "https://traccoveredbridge.com/images/leagues/ea_logo.png", w: 100, h: 100 },
   { name: "MLS Next", src: "https://images.mlssoccer.com/image/upload/v1664742553/assets/logos/mls-next-2022-COLOR-800x800.png", w: 100, h: 100 },
   { name: "Nike", src: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg", w: 140, h: 70, isLarge: true },
 ];
