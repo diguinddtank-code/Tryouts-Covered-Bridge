@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { Check, ChevronRight } from "lucide-react";
+import { Check, ChevronRight, MapPin, Calendar, Clock } from "lucide-react";
 import LanguageSelector from "@/components/LanguageSelector";
 
 export default function GirlsTryouts() {
@@ -124,55 +124,76 @@ export default function GirlsTryouts() {
             </p>
 
             <h2 className="font-anton font-black italic text-6xl md:text-8xl lg:text-[7.5rem] leading-[0.85] tracking-wide uppercase drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)] flex flex-col items-center lg:items-start">
-              <span className="block text-white transform -skew-x-6 relative">
+              <span className="block text-white transform -skew-x-3 relative">
                 GIRLS
               </span>
-              <span className="block text-[#CC0000] transform -skew-x-6 relative">
+              <span className="block text-[#CC0000] transform -skew-x-3 relative">
                 TRYOUTS
               </span>
             </h2>
             
             {/* Speed Slash Element */}
-            <div className="h-[6px] w-24 bg-[#CC0000] my-8 skew-x-[-15deg] shadow-[0_0_20px_rgba(204,0,0,0.5)] hidden lg:block"></div>
+            <div className="h-[6px] w-24 bg-[#CC0000] my-6 md:my-8 skew-x-[-15deg] shadow-[0_0_20px_rgba(204,0,0,0.5)] hidden lg:block"></div>
             
-            <div className="text-white/90 font-medium drop-shadow-md flex flex-col gap-3 items-center lg:items-start text-sm md:text-base bg-black/40 border border-white/10 rounded-2xl p-5 backdrop-blur-md">
-              <div className="flex items-start gap-2 text-left">
-                <span className="text-xl">📍</span>
-                <div>
-                  <p className="font-bold text-[#CC0000] uppercase text-xs tracking-wider">May 21</p>
-                  <p>1560 Community Way NE, Gainesville, GA 30501</p>
+            {/* SCHEDULE - E-SPORTS / ELITE SPORTS CARDS */}
+            <div className="flex flex-col gap-4 mt-6 lg:mt-2 w-full max-w-[480px] self-center lg:self-start">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Location 1 */}
+                <div className="bg-gradient-to-br from-[#050C1A]/95 to-black/95 border border-white/10 rounded-xl overflow-hidden relative group backdrop-blur-md shadow-2xl">
+                  <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#CC0000] to-red-500"></div>
+                  <div className="p-4 md:p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                       <Calendar className="w-4 h-4 text-[#CC0000]" />
+                       <span className="font-anton tracking-widest text-[#CC0000] text-sm uppercase">May 21</span>
+                    </div>
+                    <div className="flex items-start gap-2 text-white/90">
+                       <MapPin className="w-4 h-4 text-white/50 shrink-0 mt-0.5" />
+                       <p className="font-dm-sans text-xs sm:text-sm font-semibold leading-relaxed">1560 Community Way NE<br/>Gainesville, GA 30501</p>
+                    </div>
+                  </div>
+                  {/* Subtle hover FX */}
+                  <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                </div>
+
+                {/* Location 2 */}
+                <div className="bg-gradient-to-br from-[#050C1A]/95 to-black/95 border border-white/10 rounded-xl overflow-hidden relative group backdrop-blur-md shadow-2xl">
+                  <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#CC0000] to-red-500"></div>
+                  <div className="p-4 md:p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                       <Calendar className="w-4 h-4 text-[#CC0000]" />
+                       <span className="font-anton tracking-widest text-[#CC0000] text-sm uppercase">May 22</span>
+                    </div>
+                    <div className="flex items-start gap-2 text-white/90">
+                       <MapPin className="w-4 h-4 text-white/50 shrink-0 mt-0.5" />
+                       <p className="font-dm-sans text-xs sm:text-sm font-semibold leading-relaxed">1034 Franklin Gateway SE<br/>Marietta, Ga 30066</p>
+                    </div>
+                  </div>
+                  <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                 </div>
               </div>
-              <div className="w-full h-px bg-white/10 my-1"></div>
-              <div className="flex items-start gap-2 text-left">
-                <span className="text-xl">📍</span>
-                <div>
-                  <p className="font-bold text-[#CC0000] uppercase text-xs tracking-wider">May 22</p>
-                  <p>1034 Franklin Gateway SE Marietta, Ga 30066</p>
-                </div>
-              </div>
-              <div className="w-full h-px bg-white/10 my-1"></div>
-              <div className="flex items-center gap-2 text-left font-anton text-lg tracking-wide">
-                <span className="text-xl w-6">⏰</span>
-                <p>7:30 PM - 9:00 PM</p>
+
+              {/* Time display */}
+              <div className="flex items-center justify-center sm:justify-start gap-3 bg-[#CC0000]/20 border border-[#CC0000]/40 rounded-xl px-4 py-3 w-full sm:w-max mx-auto lg:mx-0 backdrop-blur-md shadow-[0_0_15px_rgba(204,0,0,0.15)]">
+                 <Clock className="w-5 h-5 text-[#CC0000]" />
+                 <span className="font-anton text-xl md:text-2xl tracking-wider text-white">7:30 PM - 9:00 PM</span>
               </div>
             </div>
             
             {/* INLINE LEAGUES DISPLAY - ELITE SPORT STYLING (Except MLS NEXT) */}
-            <div className="mt-10 w-full max-w-[450px] relative group self-center lg:self-start">
+            <div className="mt-8 md:mt-10 w-full max-w-[450px] relative group self-center lg:self-start">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#CC0000] via-[#CC0000] to-transparent rounded-2xl blur-md opacity-30 group-hover:opacity-50 transition duration-500"></div>
               <div className="relative bg-black/80 border border-white/20 p-5 md:p-6 rounded-2xl backdrop-blur-xl">
-                <p className="font-dm-sans text-[10px] md:text-xs uppercase font-black text-white/80 tracking-[0.25em] mb-4 flex items-center gap-3">
+                <p className="font-dm-sans text-[10px] md:text-xs uppercase font-black text-white/80 tracking-[0.25em] mb-4 flex items-center justify-center lg:justify-start gap-3">
                   <span className="w-6 h-[2px] bg-[#CC0000]"></span>
                   Proudly Competing In
                 </p>
-                <div className="flex items-center justify-start gap-8">
+                <div className="flex items-center justify-center lg:justify-start gap-6 md:gap-8">
                    {[
                     { src: "https://traccoveredbridge.com/images/leagues/ga_soccer_logo.png", alt: "Georgia Soccer" },
                     { src: "https://traccoveredbridge.com/images/leagues/national_logo.png", alt: "USYS National" },
                     { src: "https://traccoveredbridge.com/images/leagues/ea_logo.png", alt: "EA League" }
                   ].map((logo, idx) => (
-                    <div key={idx} className="relative w-14 h-14 md:w-16 md:h-16 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-110 transition-all duration-300 transform-gpu cursor-pointer grayscale hover:grayscale-0">
+                    <div key={idx} className="relative w-12 h-12 md:w-16 md:h-16 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-110 transition-all duration-300 transform-gpu cursor-pointer grayscale hover:grayscale-0">
                       <Image src={logo.src} alt={logo.alt} fill className="object-contain" referrerPolicy="no-referrer" />
                     </div>
                   ))}
@@ -263,7 +284,7 @@ export default function GirlsTryouts() {
                       {/* Position Custom Selector */}
                       <div className="flex flex-col gap-1.5 sm:col-span-2 mt-2">
                         <label className="font-dm-sans text-[10px] text-slate-700 uppercase font-bold tracking-wider">What position do you play? *</label>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3 gap-2">
                           {[
                             "Goalkeeper", "Left Back", "Right Back", "Center Back", 
                             "Left Midfield", "Right Midfield", "Center Midfield", "Forward"
@@ -272,9 +293,9 @@ export default function GirlsTryouts() {
                               key={pos}
                               type="button"
                               onClick={() => setSelectedPos(pos)}
-                              className={`p-2 rounded-lg border text-[10px] font-bold transition-all flex items-center justify-center text-center ${
+                              className={`px-2 py-2.5 rounded-lg border text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center text-center leading-tight ${
                                 selectedPos === pos 
-                                  ? 'bg-[#CC0000] border-[#CC0000] text-white shadow-md' 
+                                  ? 'bg-[#CC0000] border-[#CC0000] text-white shadow-md scale-[1.02]' 
                                   : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                               }`}
                             >
